@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {DailyFormPage} from '../daily-form/daily-form';
-import {RecordProvider, Record} from '../../providers/record/record';
+import {RecordProvider} from '../../providers/record/record';
 import {Chart} from 'chart.js';
 
 @Component({
