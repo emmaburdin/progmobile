@@ -12,6 +12,7 @@ export class HomePage {
   @ViewChild('barChart') barChart;
   bars: any;
   colorArray: any;
+  displayMode: string = "byday";
 
 
   constructor(public navCtrl: NavController,
@@ -22,7 +23,6 @@ export class HomePage {
   openDailyFrom() {
     this.navCtrl.push(DailyFormPage);
   }
-
 
   ionViewDidEnter() {
     this.createBarChart();

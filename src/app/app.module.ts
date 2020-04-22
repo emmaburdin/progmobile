@@ -12,6 +12,19 @@ import { ListPage } from '../pages/list/list';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { DailyFormPage } from '../pages/daily-form/daily-form';
 import { RecordProvider } from '../providers/record/record';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { UserProvider } from '../providers/user/user';
+import {LoginPage} from "../pages/login/login";
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyC73UndUHsgg16impNMDTi9k8VohZQoObg",
+  authDomain: "stoppc-cacae.firebaseapp.com",
+  databaseURL: "https://stoppc-cacae.firebaseio.com",
+  storageBucket: "stoppc-cacae.appspot.com",
+  messagingSenderId: '<626532265516>'
+};
 
 @NgModule({
   declarations: [
@@ -19,26 +32,33 @@ import { RecordProvider } from '../providers/record/record';
     HomePage,
     ListPage,
     TutorialPage,
-    DailyFormPage
+    DailyFormPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     ListPage,
-    TutorialPage, 
-    DailyFormPage
+    TutorialPage,
+    DailyFormPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RecordProvider
+    RecordProvider,
+    AngularFireDatabase,
+    UserProvider
   ]
 })
 export class AppModule {}

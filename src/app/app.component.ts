@@ -7,6 +7,7 @@ import { DailyFormPage } from '../pages/daily-form/daily-form';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { ListPage } from '../pages/list/list';
 import { HomePage } from '../pages/home/home';
+import {LoginPage} from "../pages/login/login";
 
 
 
@@ -28,14 +29,14 @@ export class MyApp {
               this.rootPage = TutorialPage;
             }
             else{
-              this.rootPage = HomePage;
+              this.rootPage = LoginPage;
               //this.rootPage = DailyFormPage;
             }
             this.initializeApp();
           })
           .catch(_ => this.initializeApp());
     });
-   
+
 
     // used for an example of ngFor and navigation
     this.pages = [
