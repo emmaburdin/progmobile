@@ -26,28 +26,27 @@ export class HomePage {
 
   ionViewDidEnter() {
     this.createBarChart();
-    this.myRecordProvider.$records.subscribe((records) => this.updateChart(records));
-  }
+    this.myRecordProvider.$records.subscribe(
+      (records) => {
+        let values = [];
+        let labels = [];
+        let mood_values = [];
 
-  updateChart(records: Array<Record>) {
-    let values = [];
-    let labels = [];
-    let mood_values = [];
-
-    for (let r of records) {
-      values.push(r.nb_heuresPc);
-      mood_values.push(r.mood / 5);
-      //console.log("log : ", r);
-      labels.push(r.date.getDate());
-    }
-    this.bars.data.labels = labels;
-    this.bars.data.datasets[0].data = values;
-    this.bars.data.datasets[1].data = mood_values;
-    this.bars.update();
+        for (let r of records) {
+          values.push(r.nb_heuresPc);
+          mood_values.push(r.mood / 5);
+          //console.log("log : ", r);
+          labels.push(r.date.getDate());
+        }
+        this.bars.data.labels = labels;
+        this.bars.data.datasets[0].data = values;
+        this.bars.data.datasets[1].data = mood_values;
+        this.bars.update();
+      }
+    )
   }
 
   createBarChart() {
-
 
     this.bars = new Chart(this.barChart.nativeElement, {
       type: 'line',

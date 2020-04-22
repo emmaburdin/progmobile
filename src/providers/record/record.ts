@@ -29,8 +29,10 @@ export class RecordProvider {
     this.storage.get("records")
       .then((res) => {
         if (res != null) {
+
           this.records = JSON.parse(res);
-          this.$records.next(this.records)
+          this.$records.next(this.records);
+
           for (let r of this.records) {
             r.date = new Date(r.date);
           }
