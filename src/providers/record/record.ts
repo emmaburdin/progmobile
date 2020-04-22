@@ -31,12 +31,11 @@ export class RecordProvider {
         if (res != null) {
 
           this.records = JSON.parse(res);
-          this.$records.next(this.records);
 
           for (let r of this.records) {
             r.date = new Date(r.date);
           }
-
+          this.$records.next(this.records);
         }
       })
   }

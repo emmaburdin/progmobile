@@ -35,7 +35,7 @@ export class HomePage {
         for (let r of records) {
           values.push(r.nb_heuresPc);
           mood_values.push(r.mood / 5);
-          //console.log("log : ", r);
+          console.log("log : ", r);
           labels.push(r.date.getDate());
         }
         this.bars.data.labels = labels;
