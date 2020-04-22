@@ -2,9 +2,13 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { HomePage } from '../pages/home/home';
+import {Storage} from '@ionic/storage';
+import { DailyFormPage } from '../pages/daily-form/daily-form';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 import { ListPage } from '../pages/list/list';
+import { HomePage } from '../pages/home/home';
+
+
 
 @Component({
   templateUrl: 'app.html'
@@ -12,17 +16,34 @@ import { ListPage } from '../pages/list/list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = null;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    this.initializeApp();
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage:Storage) {
+    this.storage.ready().then(() => {
+      this.storage.get("tutorial_done")
+          .then((res) =>{
+            if(res != "true"){
+              this.rootPage = TutorialPage;
+            }
+            else{
+              this.rootPage = HomePage;
+              //this.rootPage = DailyFormPage;
+            }
+            this.initializeApp();
+          })
+          .catch(_ => this.initializeApp());
+    });
+   
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'List', component: ListPage },
+      { title: 'Tutorial', component: TutorialPage},
+      { title: 'Nouvel Enregistrement', component: DailyFormPage}
+    // { title: 'Nouvel Enregistrement', component: DailyFormPage}
     ];
 
   }

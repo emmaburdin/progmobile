@@ -5,14 +5,25 @@
     </button>
     <ion-title>Home</ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header>   
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <h3>Salut les copains</h3>
+  <canvas #barChart></canvas>
 
   <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
+    Donnez-moi des nouvelles de moi.
   </p>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <button ion-button secondary (click)="openDailyFrom()">Nouvel Enregistrement</button>
+  <h2>Mes derniers enregistrements</h2>
+  <ul>
+    <li *ngFor = "let record of myRecordProvider.records">
+      Date : {{record.date | date:"medium"}}
+      <br>
+      Nombre d'heures d'écrans : {{record.nb_heuresPc}}
+      <br>
+      Mood : {{record.mood}}
+    </li>
+  </ul>
 </ion-content>

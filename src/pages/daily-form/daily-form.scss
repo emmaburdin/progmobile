@@ -1,0 +1,13 @@
+page-daily-form {
+    ion-item-divider {
+        margin-top: 5rem;
+    }
+    .validateButton{
+        margin-top: 3rem !important ; 
+    }
+    .scroll-content {
+        display: flex;
+        flex-direction: column  ;
+        justify-content: center;
+    }
+}
