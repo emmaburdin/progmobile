@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Storage} from '@ionic/storage';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
@@ -9,42 +9,40 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
   and Angular DI.
 */
 export interface Record {
-  nb_heuresPc : number,
-  mood : number,
-  date : Date
+  nb_heuresPc: number,
+  mood: number,
+  date: Date
 
 }
+
 @Injectable()
 export class RecordProvider {
 
-  public records:Array<Record> = [];
-  public $records:BehaviorSubject<Array<Record>> = new BehaviorSubject<Array<Record>>([]);
+  public records: Array<Record> = [];
+  public $records: BehaviorSubject<Array<Record>> = new BehaviorSubject<Array<Record>>([]);
 
 
-  constructor(public storage:Storage) {
-     
+  constructor(public storage: Storage) {
+
     console.log('Hello RecordProvider Provider');
-  
-  this.storage.get("records")
-  .then((res) => {
-    if(res != null)
-    {
-      this.records = JSON.parse(res) ;
-      this.$records.next(this.records)
-      for(let r of this.records)
-      {
-        r.date = new Date(r.date);
-      }
-      
-    }
-   })
+
+    this.storage.get("records")
+      .then((res) => {
+        if (res != null) {
+          this.records = JSON.parse(res);
+          this.$records.next(this.records)
+          for (let r of this.records) {
+            r.date = new Date(r.date);
+          }
+
+        }
+      })
   }
 
-  addRecord(newRecords:any) 
-  {
-    this.records.push(newRecords); 
+  addRecord(newRecords: any) {
+    this.records.push(newRecords);
     this.$records.next(this.records);
-    console.log("new record added", this.records);
-    this.storage.set("records",JSON.stringify(this.records));
+    //console.log("new record added", this.records);
+    this.storage.set("records", JSON.stringify(this.records));
   }
 }
