@@ -5,25 +5,19 @@
     </button>
     <ion-title>Home</ion-title>
   </ion-navbar>
-</ion-header>   
+</ion-header>
 
 <ion-content padding>
-  <h3>Salut les copains</h3>
+  <h2>Salut les copains</h2>
+  <hr>
+  <h3>Ton suivi</h3>
   <canvas #barChart></canvas>
+  <hr>
 
   <p>
     Donnez-moi des nouvelles de moi.
   </p>
-
-  <button ion-button secondary (click)="openDailyFrom()">Nouvel Enregistrement</button>
-  <h2>Mes derniers enregistrements</h2>
-  <ul>
-    <li *ngFor = "let record of myRecordProvider.records">
-      Date : {{record.date | date:"medium"}}
-      <br>
-      Nombre d'heures d'écrans : {{record.nb_heuresPc}}
-      <br>
-      Mood : {{record.mood}}
-    </li>
-  </ul>
+  <div class="newRecordButtonWrappe">
+    <button ion-button secondary (click)="openDailyFrom()">Nouvel Enregistrement</button>
+  </div>
 </ion-content>
