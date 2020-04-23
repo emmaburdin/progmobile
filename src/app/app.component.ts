@@ -8,6 +8,8 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { ListPage } from '../pages/list/list';
 import { HomePage } from '../pages/home/home';
 import {LoginPage} from "../pages/login/login";
+import {UserProvider} from "../providers/user/user";
+
 
 
 
@@ -21,7 +23,11 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage:Storage) {
+  constructor(public platform: Platform,
+              public userProvider:UserProvider,
+              public statusBar: StatusBar,
+              public splashScreen: SplashScreen,
+              public storage:Storage) {
     this.storage.ready().then(() => {
       this.storage.get("tutorial_done")
           .then((res) =>{
@@ -62,5 +68,12 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  logOutUser()
+  {
+    this.userProvider.logout()
+      .then(()=>{this.nav.setRoot(LoginPage)})
+      .catch((err) =>alert("Erreur de connexion " + err))
   }
 }

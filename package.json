@@ -27,6 +27,7 @@
     "angularfire2": "^5.0.0-rc.4",
     "chart.js": "^2.9.3",
     "cordova-android": "8.1.0",
+    "cordova-plugin-firebasex": "^9.1.0-cli",
     "cordova-sqlite-storage": "^5.0.0",
     "firebase": "^4.12.0",
     "ionic-angular": "3.9.9",
@@ -57,7 +58,8 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "cordova-plugin-firebasex": {}
     },
     "platforms": [
       "android"

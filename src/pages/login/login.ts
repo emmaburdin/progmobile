@@ -28,20 +28,25 @@ export class LoginPage {
     this.userProvider.userInfo.subscribe(
       res => {
 
-        this.UserInfoReady = true;
-
-        if (this.loader)
-          this.loader.dismiss();
-
-        if (res)
+        if (res!=undefined)
         {
+          this.UserInfoReady = true;
 
-          this.navCtrl.setRoot(HomePage);
+          if (this.loader)
+            this.loader.dismiss();
+
+          if (res)
+          {
+
+            this.navCtrl.setRoot(HomePage);
+
+          }
+          else{
+            this.UserNotConnected = true;
+          }
+          console.log(res);
         }
-        else{
-          this.UserNotConnected = true;
-        }
-        console.log(res);
+
       }
     )
   }
