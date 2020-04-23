@@ -3,6 +3,7 @@ import {NavController} from 'ionic-angular';
 import {DailyFormPage} from '../daily-form/daily-form';
 import {RecordProvider} from '../../providers/record/record';
 import {Chart} from 'chart.js';
+import {UserProvider} from "../../providers/user/user";
 
 @Component({
   selector: 'page-home',
@@ -16,6 +17,7 @@ export class HomePage {
 
 
   constructor(public navCtrl: NavController,
+              public userProvider: UserProvider,
               public myRecordProvider: RecordProvider) {
 
   }

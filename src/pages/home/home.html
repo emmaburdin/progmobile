@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Salut les copains</h2>
+  <h2>Bonjour {{(userProvider.userInfo | async)?.displayName}}</h2>
   <hr>
   <h3>Ton suivi</h3>
   <canvas #barChart></canvas>
