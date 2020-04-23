@@ -10,9 +10,6 @@ import { HomePage } from '../pages/home/home';
 import {LoginPage} from "../pages/login/login";
 import {UserProvider} from "../providers/user/user";
 
-
-
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -46,8 +43,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
+      { title: 'Accueil', component: HomePage },
       { title: 'Tutorial', component: TutorialPage},
       { title: 'Nouvel Enregistrement', component: DailyFormPage}
     // { title: 'Nouvel Enregistrement', component: DailyFormPage}
@@ -70,10 +66,9 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 
-  logOutUser()
-  {
+  logOutUser() {
     this.userProvider.logout()
-      .then(()=>{this.nav.setRoot(LoginPage)})
-      .catch((err) =>alert("Erreur de connexion " + err))
+      .then(() => {this.nav.setRoot(LoginPage)})
+      .catch((err) => alert("Erreur de connexion"))
   }
 }

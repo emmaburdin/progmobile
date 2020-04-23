@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content padding>
-  <div *ngIf="UserNotConnected">
+  <div *ngIf="userNotConnected">
     <p>Connectez vous afin de voir vos données et les partager avec vos amis.</p>
     <button ion-button full (click)="userProvider.login()">Connexion avec Google</button>
   </div>
