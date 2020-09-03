@@ -17,13 +17,15 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { UserProvider } from '../providers/user/user';
 import {LoginPage} from "../pages/login/login";
+import {AngularFirestoreModule} from "angularfire2/firestore";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyC73UndUHsgg16impNMDTi9k8VohZQoObg",
   authDomain: "stoppc-cacae.firebaseapp.com",
   databaseURL: "https://stoppc-cacae.firebaseio.com",
   storageBucket: "stoppc-cacae.appspot.com",
-  messagingSenderId: '<626532265516>'
+  messagingSenderId: '<626532265516>',
+  projectId:'stoppc-cacae'
 };
 
 @NgModule({
@@ -41,7 +43,8 @@ export const firebaseConfig = {
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFirestoreModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

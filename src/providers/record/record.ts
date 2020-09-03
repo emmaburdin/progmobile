@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Storage} from '@ionic/storage';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {UserProvider} from "../user/user";
+import {identifierModuleUrl} from "@angular/compiler";
+import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
+import {Subscription} from "rxjs";
 
 /*
   Generated class for the RecordProvider provider.
@@ -20,13 +24,17 @@ export class RecordProvider {
 
   public records: Array<Record> = [];
   public $records: BehaviorSubject<Array<Record>> = new BehaviorSubject<Array<Record>>([]);
+  private userEmail: string = null;
+  private remoteCollection:AngularFirestoreCollection<Record> =null;
+  private remoteCollectionSubscription:Subscription=null;
 
-
-  constructor(public storage: Storage) {
+  constructor(public storage: Storage,
+              private firestore: AngularFirestore,
+              private userProvider:UserProvider) {
 
     console.log('Hello RecordProvider Provider');
 
-    this.storage.get("records")
+    /**/this.storage.get("records")
       .then((res) => {
         if (res != null) {
 
@@ -37,13 +45,62 @@ export class RecordProvider {
           }
           this.$records.next(this.records);
         }
-      })
+      });
+    this.subscribeToUserEmail()/**/
   }
 
-  addRecord(newRecords: any) {
-    this.records.push(newRecords);
-    this.$records.next(this.records);
-    //console.log("new record added", this.records);
-    this.storage.set("records", JSON.stringify(this.records));
+  subscribeToUserEmail()
+  {
+    this.userProvider.userInfo.subscribe(
+      (res) =>{
+        if (res && 'email' in res && res["email"])
+        {
+          this.userEmail = res.email;
+          console.log("user email", this.userEmail)
+          this.syncToRemoteCollection();
+        }
+        else {
+          this.userEmail=null;
+          this.unSyncFromRemoteCollection()
+        }
+      }
+    )
   }
+  unSyncFromRemoteCollection ()
+  {
+    if (this.remoteCollectionSubscription)
+    {
+      this.remoteCollectionSubscription.unsubscribe();
+      this.remoteCollectionSubscription = null;
+      this.remoteCollection = null;
+    }
+  }
+
+  syncToRemoteCollection()
+  {
+    if(this.userEmail)
+    {
+      this.remoteCollection =this.firestore.doc<any>("users/" +this.userEmail).collection<Record>("records");
+      this.remoteCollectionSubscription = this.remoteCollection.valueChanges()
+        .subscribe(
+          (newValue) => {
+            this.records = newValue;
+            this.$records.next(this.records);
+
+          }
+        )
+    }
+  }
+
+  addRecord(newRecord: any) {
+    this.remoteCollection.doc(this.getRecordId(newRecord)).set(newRecord);
+  }
+  getRecordId (record:Record):string
+  {
+    if(record)
+      return record.date.getTime().toString()
+    else
+      return null;
+  }
+
 }
